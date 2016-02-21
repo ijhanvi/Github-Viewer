@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="githubViewer">
+
+<head>
+  <script data-require="angular.js@1.3.20" data-semver="1.3.20" src="https://code.angularjs.org/1.3.20/angular.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body class="ng-cloak" ng-controller="MainController">
+  <h1>{{message}}</h1>
+  <div ng-show="error">
+    {{error}}
+  </div>
+
+  <div>
+    <form name="SeacrchUser" ng-click="search(username)">
+      <input name="username" placeholder="Username to find" ng-model="username" />
+      <input type="submit" value="Search" />
+    </form>
+  </div>
+
+
+  {{countdown}}
+  <div ng-show="user">
+    Name : {{user.name}}
+    <br /> Location : {{user.location}}
+    <br /> Login id : {{user.login}}
+    <br /> <h3>Repositories</h3>
+    <br /> Sort by:
+    <select ng-model="sortOrderBy">
+      <option value="-stargazers_count">Stars</option>
+      <option value="name">Name</option>
+      <option value="-language">Language</option>
+    </select>
+  </div>
+  <table ng-show="user">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Stars</th>
+        <th>Language</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="repo in repos | orderBy : sortOrderBy">
+        <td>{{repo.name}}</td>
+        <td>{{repo.stargazers_count | number}}</td>
+        <td>{{repo.language}}</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
